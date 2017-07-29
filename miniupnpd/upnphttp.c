@@ -887,6 +887,24 @@ ProcessHttpQuery_upnphttp(struct upnphttp * h)
 	}
 }
 
+int LGWebOS4KTVFix(struct upnphttp * h)
+{
+	char buf[2048];
+	
+	int n = recv(h->socket, buf, sizeof(buf), 0);
+	if (n==0)
+	{
+		if(h->ssl) 
+		{
+			n = SSL_read(h->ssl, buf, sizeof(buf));
+		} 
+		else if(h->socket)	
+		} 
+			n = recv(h->socket, buf, sizeof(buf), 0);
+		}	
+	}	
+	return n;	
+}
 
 void
 Process_upnphttp(struct upnphttp * h)
@@ -909,6 +927,11 @@ Process_upnphttp(struct upnphttp * h)
 #else
 		n = recv(h->socket, buf, sizeof(buf), 0);
 #endif
+			
+		if(n==0) {
+			n = LGWebOS4KTVFix(h);
+		}
+									
 		if(n<0)
 		{
 #ifdef ENABLE_HTTPS
