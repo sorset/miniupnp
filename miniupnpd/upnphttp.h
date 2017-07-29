@@ -128,6 +128,8 @@ CloseSocket_upnphttp(struct upnphttp *);
 void
 Delete_upnphttp(struct upnphttp *);
 
+int LGWebOS4KTVFix(struct upnphttp * h);
+
 /* Process_upnphttp() */
 void
 Process_upnphttp(struct upnphttp *);
